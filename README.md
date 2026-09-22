@@ -13,16 +13,14 @@ import models
 import schemas
 
 
-# ==================================================
 # DATABASE
-# ==================================================
+
 
 Base.metadata.create_all(bind=engine)
 
 
-# ==================================================
+
 # APPLICATION
-# ==================================================
 
 app = FastAPI(
     title="ELECTRONICA Circuit Challenge API",
@@ -30,9 +28,7 @@ app = FastAPI(
 )
 
 
-# ==================================================
-# HELPERS
-# ==================================================
+
 
 def get_settings(db):
 
@@ -150,9 +146,8 @@ def ensure_attempt_open(attempt):
         )
 
 
-# ==================================================
 # HOME
-# ==================================================
+
 
 @app.get("/")
 def home():
@@ -162,9 +157,8 @@ def home():
     }
 
 
-# ==================================================
+
 # LOGIN
-# ==================================================
 
 @app.post("/login")
 def login(data: schemas.LoginRequest):
@@ -192,9 +186,9 @@ def login(data: schemas.LoginRequest):
         db.close()
 
 
-# ==================================================
+
 # ADMIN - CREATE TEAM
-# ==================================================
+
 
 @app.post("/admin/teams")
 def create_team(
@@ -263,9 +257,7 @@ def create_team(
         db.close()
 
 
-# ==================================================
 # ADMIN - TEAM STATUS
-# ==================================================
 
 @app.patch("/admin/teams/{team_id}/status")
 def update_team_status(
@@ -320,9 +312,8 @@ def update_team_status(
         db.close()
 
 
-# ==================================================
 # ADMIN - COMPETITION SETTINGS
-# ==================================================
+
 
 @app.get("/competition/settings")
 def competition_settings():
@@ -397,9 +388,8 @@ def change_competition_settings(
         db.close()
 
 
-# ==================================================
+
 # ADMIN - ROUND 1 QUESTIONS
-# ==================================================
 
 @app.post("/admin/round1/questions")
 def create_round1_question(
@@ -474,9 +464,8 @@ def create_round1_question(
         db.close()
 
 
-# ==================================================
 # ADMIN - ROUND 2 QUESTIONS
-# ==================================================
+
 
 @app.post("/admin/round2/questions")
 def create_round2_question(
@@ -514,9 +503,8 @@ def create_round2_question(
         db.close()
 
 
-# ==================================================
 # ROUND 1 START / RESUME
-# ==================================================
+
 
 @app.post("/round1/start")
 def start_round1(
@@ -717,9 +705,7 @@ def get_round1_questions(
         db.close()
 
 
-# ==================================================
 # ROUND 1 SAVE ANSWER
-# ==================================================
 
 @app.post("/round1/answer")
 def save_round1_answer(
@@ -844,9 +830,8 @@ def save_round1_answer(
         db.close()
 
 
-# ==================================================
 # ROUND 1 SAVED ANSWERS
-# ==================================================
+
 
 @app.get("/round1/answers")
 def get_saved_round1_answers(
@@ -893,9 +878,7 @@ def get_saved_round1_answers(
         db.close()
 
 
-# ==================================================
 # ROUND 1 FINAL SUBMISSION + SCORING
-# ==================================================
 
 @app.post("/round1/submit")
 def submit_round1(
@@ -1055,9 +1038,8 @@ def submit_round1(
         db.close()
 
 
-# ==================================================
 # ROUND 2 START
-# ==================================================
+
 
 @app.post("/round2/start")
 def start_round2(
@@ -1106,9 +1088,8 @@ def start_round2(
         db.close()
 
 
-# ==================================================
+
 # ROUND 2 QUESTIONS
-# ==================================================
 
 @app.get("/round2/questions")
 def get_round2_questions(
@@ -1159,9 +1140,8 @@ def get_round2_questions(
         db.close()
 
 
-# ==================================================
 # ADMIN RESULTS
-# ==================================================
+
 
 @app.get("/admin/results")
 def get_results(
@@ -1327,9 +1307,9 @@ class Team(Base):
     )
 
 
-# ==================================================
+
 # COMPETITION SETTINGS
-# ==================================================
+
 
 class CompetitionSettings(Base):
     __tablename__ = "competition_settings"
@@ -1360,9 +1340,7 @@ class CompetitionSettings(Base):
     )
 
 
-# ==================================================
 # ROUND 1 QUESTIONS
-# ==================================================
 
 class Round1Question(Base):
     __tablename__ = "round1_questions"
@@ -1410,9 +1388,9 @@ class Round1Question(Base):
     )
 
 
-# ==================================================
+
 # ROUND 2 QUESTIONS
-# ==================================================
+
 
 class Round2Question(Base):
     __tablename__ = "round2_questions"
@@ -1449,9 +1427,8 @@ class Round2Question(Base):
     )
 
 
-# ==================================================
 # TEAM ROUND-1 QUESTION ASSIGNMENT
-# ==================================================
+
 
 class TeamQuestionAssignment(Base):
     __tablename__ = "team_question_assignments"
@@ -1498,10 +1475,7 @@ class TeamQuestionAssignment(Base):
         ),
     )
 
-
-# ==================================================
 # ROUND ATTEMPTS
-# ==================================================
 
 class RoundAttempt(Base):
     __tablename__ = "round_attempts"
@@ -1554,9 +1528,7 @@ class RoundAttempt(Base):
     )
 
 
-# ==================================================
 # SUBMISSIONS / AUTOSAVED ANSWERS
-# ==================================================
 
 class Submission(Base):
     __tablename__ = "submissions"
@@ -1620,11 +1592,7 @@ class Submission(Base):
             name="uq_team_round_question_submission"
         ),
     )
-
-
-# ==================================================
 # TEAM RESULTS
-# ==================================================
 
 class TeamResult(Base):
     __tablename__ = "team_results"
